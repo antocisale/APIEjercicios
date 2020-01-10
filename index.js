@@ -5,6 +5,10 @@ let todo = {
     userId: null,
     completed: false
 };
+let limite = 10;
+let ultimo = 0;
+let mostrados = 0;
+
 const handleError = err =>{
     alert(`Hubo un error. ${err}`);
 };
@@ -71,25 +75,103 @@ const modifyTodo = (id, title, userId, completed) => {
 const listaCompleta = ()=>{
     let totalList = document.querySelector("#todo-list");
     totalList.innerHTML = "";
-    for (tarea of lista){
-    let item = document.createElement("li");
-        item.classList.add("todo-item");
-    let title = document.createElement("span");
-        title.classList.add("todo-title");
-        title.innerHTML = tarea.title;
-    let user = document.createElement("span");
-        user.classList.add("todo-user");
-        user.innerHTML = tarea.userId;
-    let complete = document.createElement("span");
-        complete.classList.add("todo-completed");
-        complete.innerHTML = resultado(tarea.completed);
-    let boton = newBotonEliminar(tarea.id);
-    item.appendChild(title);
-    item.appendChild(user);
-    item.appendChild(complete);
-    item.appendChild(boton);
-    totalList.appendChild(item);
+    for (let i = 0; i < limite; i++){
+            let item = document.createElement("li");
+                item.classList.add("todo-item");
+            let title = document.createElement("span");
+                title.classList.add("todo-title");
+                title.innerHTML = lista[i].title;
+            let user = document.createElement("span");
+                user.classList.add("todo-user");
+                user.innerHTML = lista[i].userId;
+            let complete = document.createElement("span");
+                complete.classList.add("todo-completed");
+                complete.innerHTML = resultado(lista[i].completed);
+            let boton = newBotonEliminar(lista[i].id);
+            item.appendChild(title);
+            item.appendChild(user);
+            item.appendChild(complete);
+            item.appendChild(boton);
+            totalList.appendChild(item);
+            ultimo++;
+        };
+        cambiarSelector();
+};
+
+const irSiguiente = ()=>{
+    let totalList = document.querySelector("#todo-list");
+    totalList.innerHTML = "";
+    if(ultimo <lista.length){
+        for(let i=0;i<limite;i++){
+            if(ultimo <lista.length){
+            let item = document.createElement("li");
+                item.classList.add("todo-item");
+            let title = document.createElement("span");
+                title.classList.add("todo-title");
+                title.innerHTML = lista[ultimo].title;
+            let user = document.createElement("span");
+                user.classList.add("todo-user");
+                user.innerHTML = lista[ultimo].userId;
+            let complete = document.createElement("span");
+                complete.classList.add("todo-completed");
+                complete.innerHTML = resultado(lista[ultimo].completed);
+            let boton = newBotonEliminar(lista[ultimo].id);
+            item.appendChild(title);
+            item.appendChild(user);
+            item.appendChild(complete);
+            item.appendChild(boton);
+            totalList.appendChild(item);
+            ultimo++;
+            mostrados++;}
+        }
     }
+}; 
+const irAnterior = ()=>{
+    let totalList = document.querySelector("#todo-list");
+    totalList.innerHTML = "";
+    ultimo= ultimo-mostrados;
+    for(let i=0;i<limite;i++){
+        if(ultimo <lista.length){
+            let item = document.createElement("li");
+                item.classList.add("todo-item");
+            let title = document.createElement("span");
+                title.classList.add("todo-title");
+                title.innerHTML = lista[ultimo].title;
+            let user = document.createElement("span");
+                user.classList.add("todo-user");
+                user.innerHTML = lista[ultimo].userId;
+            let complete = document.createElement("span");
+                complete.classList.add("todo-completed");
+                complete.innerHTML = resultado(lista[ultimo].completed);
+            let boton = newBotonEliminar(lista[ultimo].id);
+            item.appendChild(title);
+            item.appendChild(user);
+            item.appendChild(complete);
+            item.appendChild(boton);
+            totalList.appendChild(item);
+            ultimo++;
+        }
+    }
+};       
+
+let botonSiguiente = document.querySelector("#todo-next");
+botonSiguiente.addEventListener("click",()=>{
+    if (ultimo==lista.length){
+        botonSiguiente.disable = true;
+    }else{
+        irSiguiente()}});
+
+let botonAnterior = document.querySelector("#todo-prev");
+botonAnterior.addEventListener("click",()=>{    
+    if (ultimo<=10){
+        botonAnterior.disable = true;
+    }else{
+        irAnterior();
+    }
+}
+);
+
+const cambiarSelector = ()=>{
     let selectorMaximo = document.querySelector("#todo-id-update");
     selectorMaximo.setAttribute("max",`${lista.length}`);
     selectorMaximo.setAttribute("min","1");
