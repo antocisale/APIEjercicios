@@ -211,4 +211,8 @@ let botonAgregar = document.querySelector("#todo-create");
         let tarea = document.querySelector("#todo-title-create").value;
         let usuario = document.querySelector("#todo-user-create").value;
         createTodo(tarea,usuario);
+        document.querySelector("#todo-title-create").value = "";
+        document.querySelector("#todo-user-create").value = "";
 });
+
+window.addEventListener('load', getTodos);
