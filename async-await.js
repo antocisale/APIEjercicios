@@ -140,9 +140,6 @@ const irSiguiente = () => {
                 item.appendChild(boton);
                 totalList.appendChild(item);
                 ultimo++;
-                console.log(`ultimo ${ultimo}`);
-                mostrados++;
-                console.log(`mostrados ${mostrados}`)
             }
         }
     }
@@ -150,38 +147,31 @@ const irSiguiente = () => {
 const irAnterior = () => {
     let totalList = document.querySelector("#todo-list");
     totalList.innerHTML = "";
-    console.log(`ultimo antes de loop anterior ${ultimo}`);
-    console.log(`mostrados antes de loop anterior ${mostrados}`)
-    ultimo = ultimo - limite;
-    console.log(`ultimo despues de restar mostrados${ultimo}`);
-    mostrados = mostrados-limite;
-    console.log(`mostrados despues de restar limite${mostrados}`)
+    ultimo = ultimo - 2*limite;
     for (let i = 0; i < limite; i++) {
         if (ultimo < lista.length) {
             let item = document.createElement("li");
             item.classList.add("todo-item");
             let id = document.createElement("span");
             id.classList.add("todo-title");
-            id.innerHTML = lista[mostrados].id;
+            id.innerHTML = lista[ultimo].id;
             let title = document.createElement("span");
             title.classList.add("todo-title");
-            title.innerHTML = lista[mostrados].title;
+            title.innerHTML = lista[ultimo].title;
             let user = document.createElement("span");
             user.classList.add("todo-user");
-            user.innerHTML = lista[mostrados].userId;
+            user.innerHTML = lista[ultimo].userId;
             let complete = document.createElement("span");
             complete.classList.add("todo-completed");
-            complete.innerHTML = resultado(lista[mostrados].completed);
-            let boton = newBotonEliminar(lista[mostrados].id);
+            complete.innerHTML = resultado(lista[ultimo].completed);
+            let boton = newBotonEliminar(lista[ultimo].id);
             item.appendChild(id);
             item.appendChild(title);
             item.appendChild(user);
             item.appendChild(complete);
             item.appendChild(boton);
             totalList.appendChild(item);
-            console.log(`ultimo al apretar anterior ${ultimo}`);
-            mostrados++;
-            console.log(`mostrados al apretar anterior ${mostrados}`)
+            ultimo++;
         }
     }
 };
