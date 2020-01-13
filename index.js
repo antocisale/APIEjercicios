@@ -80,14 +80,14 @@ const listaCompleta = ()=>{
                 item.classList.add("todo-item");
             let title = document.createElement("span");
                 title.classList.add("todo-title");
-                title.innerHTML = lista[i].title;
+                title.innerHTML = lista[ultimo].title;
             let user = document.createElement("span");
                 user.classList.add("todo-user");
-                user.innerHTML = lista[i].userId;
+                user.innerHTML = lista[ultimo].userId;
             let complete = document.createElement("span");
                 complete.classList.add("todo-completed");
-                complete.innerHTML = resultado(lista[i].completed);
-            let boton = newBotonEliminar(lista[i].id);
+                complete.innerHTML = resultado(lista[ultimo].completed);
+            let boton = newBotonEliminar(lista[ultimo].id);
             item.appendChild(title);
             item.appendChild(user);
             item.appendChild(complete);
@@ -163,7 +163,7 @@ botonSiguiente.addEventListener("click",()=>{
 
 let botonAnterior = document.querySelector("#todo-prev");
 botonAnterior.addEventListener("click",()=>{    
-    if (ultimo<=10){
+    if (ultimo==10){
         botonAnterior.disable = true;
     }else{
         irAnterior();
